@@ -17,6 +17,7 @@ import com.steelkiwi.cropiwa.config.CropIwaSaveConfig;
 import com.steelkiwi.cropiwa.image.CropArea;
 import com.steelkiwi.cropiwa.image.CropIwaBitmapManager;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
+import com.steelkiwi.cropiwa.shape.CropIwaRectShape.RectShapeMask;
 import com.steelkiwi.cropiwa.util.LoadBitmapCommand;
 import com.steelkiwi.cropiwa.shape.CropIwaShapeMask;
 import com.steelkiwi.cropiwa.util.CropIwaLog;
@@ -181,7 +182,7 @@ public class CropIwaView extends FrameLayout {
                 imageView.getImageRect(),
                 imageView.getImageRect(),
                 overlayView.getCropRect());
-        CropIwaShapeMask mask = overlayConfig.getCropShape().getMask();
+        CropIwaShapeMask mask = new RectShapeMask();//overlayConfig.getCropShape().getMask();
         CropIwaBitmapManager.get().crop(
                 getContext(), cropArea, mask,
                 imageUri, saveConfig);
