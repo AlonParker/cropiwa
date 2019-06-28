@@ -4,11 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
-
 import com.steelkiwi.cropiwa.config.CropIwaSaveConfig;
 import com.steelkiwi.cropiwa.shape.CropIwaShapeMask;
 import com.steelkiwi.cropiwa.util.CropIwaUtils;
-
+import com.steelkiwi.cropiwa.util.ResUtil;
 import java.io.IOException;
 import java.io.OutputStream;
 
@@ -26,8 +25,8 @@ class CropImageTask extends AsyncTask<Void, Void, Throwable> {
     private CropIwaSaveConfig saveConfig;
 
     public CropImageTask(
-            Context context, CropArea cropArea, CropIwaShapeMask mask,
-            Uri srcUri, CropIwaSaveConfig saveConfig) {
+        Context context, CropArea cropArea, CropIwaShapeMask mask,
+        Uri srcUri, CropIwaSaveConfig saveConfig) {
         this.context = context;
         this.cropArea = cropArea;
         this.mask = mask;
@@ -39,8 +38,10 @@ class CropImageTask extends AsyncTask<Void, Void, Throwable> {
     protected Throwable doInBackground(Void... params) {
         try {
             Bitmap bitmap = CropIwaBitmapManager.get().loadToMemory(
-                    context, srcUri, saveConfig.getWidth(),
-                    saveConfig.getHeight());
+                context,
+                srcUri,
+                ResUtil.getWidthScreen(context),
+                ResUtil.getHeightScreen(context));
 
             if (bitmap == null) {
                 return new NullPointerException("Failed to load bitmap");
